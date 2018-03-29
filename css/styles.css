@@ -1,6 +1,15 @@
 
+/*Box sizing*/
+html {
+	box-sizing: border-box;
+  }
+  *, *:before, *:after {
+	box-sizing: inherit;
+  }
+
 body {
 	padding: 40px;
+	background: #F9F9F9;
 }
 
 body, p { font-size: 24px; }
@@ -11,6 +20,7 @@ body, p { font-size: 24px; }
 	border-left: 1px solid #ccc;
 	padding-left: 0;
 	margin-top:0;
+	background: #fff;
 }
 
 #todoItems > li {
@@ -19,7 +29,33 @@ body, p { font-size: 24px; }
 	border-bottom: 1px solid #ccc;
 }
 
-#todoItems li.completed {
+#todoItems > li > label {
+	width: 80%;
+	display: inline-block;
+}
+
+#todoItems > li > #delete {
+	float: right;
+	font-size: 14px;
+	background: #D9534F;
+	border: 0;
+	border-radius: 9px;
+	color: #FFF;
+	padding: 7px;
+}
+
+#todoItems li.completed > label {
 	text-decoration: line-through;
+	font-style: italic;
+}
+
+#newTodoItem {
+	padding: 10px;
+	width: 100%;
+}
+
+#todoItemsContainer {
+	width: 800px;
+	margin: 0 auto;
 }
 

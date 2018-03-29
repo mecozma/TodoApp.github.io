@@ -2,6 +2,7 @@ var TodoItemsView = Backbone.View.extend({
     // the tagName and the id are specified in render instead
     // tagName: 'ul',
     // id: 'todoItems',
+    id: 'todoItemsContainer',
     initialize: function (options) {
         if (!(options && options.model)) {
             throw new Error('Model not specfied');
@@ -15,33 +16,49 @@ var TodoItemsView = Backbone.View.extend({
         this.$('#todoItems').append(view.render().$el);
         console.log("Added");
     },
-    onRemoveTodoItem: function(todoItem) {
+    onRemoveTodoItem: function (todoItem) {
         this.$('li#' + todoItem.id).remove();
     },
     events: {
-        'click #add': 'onClickAdd',
+        //This event is no needed anymore ad the Add button has been removed
+        // 'click #add': 'onClickAdd',
         'keypress #newTodoItem': 'onKeyPress'
     },
     onKeyPress: function (e) {
         if (e.keyCode == 13) {
-            this.onClickAdd();
+            //The below call is no needed anymore as the onClickAdd method
+            // has been deleted and the code has been transfered in this method
+            // this.onClickAdd();
+            var $textBox = this.$('#newTodoItem');
+
+            if ($textBox.val()) {
+                var todoItem = new TodoItem({ title: $textBox.val() });
+                // The Create method combines the functons commented below
+                this.model.create(todoItem);
+
+                // todoItem.save();
+                // this.model.add(todoItem);
+
+                $textBox.val('');
+
+            }
             console.log('Enter pressed');
         }
     },
-    onClickAdd: function () {
-        var $textBox = this.$('#newTodoItem');
-        if ($textBox.val()) {
-            var todoItem = new TodoItem({ title: $textBox.val() });
-            // The Create method combines the functons commented below
-            this.model.create(todoItem);
+    // onClickAdd: function () {
+    //     var $textBox = this.$('#newTodoItem');
+    //     if ($textBox.val()) {
+    //         var todoItem = new TodoItem({ title: $textBox.val() });
+    //         // The Create method combines the functons commented below
+    //         this.model.create(todoItem);
 
-            // todoItem.save();
-            // this.model.add(todoItem);
+    //         // todoItem.save();
+    //         // this.model.add(todoItem);
 
-            $textBox.val('');
-            console.log('Click');
-        }
-    },
+    //         $textBox.val('');
+    //         console.log('Click');
+    //     }
+    // },
     render: function () {
 
         //The code below has been replaced by a template
