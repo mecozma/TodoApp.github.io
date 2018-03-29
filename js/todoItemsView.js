@@ -1,6 +1,7 @@
 var TodoItemsView = Backbone.View.extend({
-    tagName: 'ul',
-    id: 'todoItems',
+    // the tagName and the id are specified in render instead
+    // tagName: 'ul',
+    // id: 'todoItems',
     initialize: function (options) {
         if (!(options && options.model)) {
             throw new Error('Model not specfied');
@@ -10,7 +11,8 @@ var TodoItemsView = Backbone.View.extend({
     },
     onAddTodoItem: function (todoItem) {
         var view = new TodoItemView({ model: todoItem });
-        this.$el.append(view.render().$el);
+        // this.$el.append(view.render().$el);
+        this.$('#todoItems').append(view.render().$el);
         console.log("Added");
     },
     onRemoveTodoItem: function(todoItem) {
@@ -42,13 +44,24 @@ var TodoItemsView = Backbone.View.extend({
     },
     render: function () {
 
-        this.$el.append('<input type="text" autofocus id="newTodoItem"></input>');
-        this.$el.append('<button id="add">Add</button>');
+        //The code below has been replaced by a template
+        // this.$el.append('<input type="text" autofocus id="newTodoItem"></input>');
+        // this.$el.append('<button id="add">Add</button>');
+        // this.$el.append('<ul id="todoItems"></ul>');
 
-        this.model.each(function (todoItem) {
-            var view = new TodoItemView({ model: todoItem });
-            this.$el.append(view.render().$el);
-        }, this);
+
+        // This code is no needed anymore as I am using an API. The below code is usefull 
+        //only when a static collection is used
+        // this.model.each(function (todoItem) {
+        //     var view = new TodoItemView({ model: todoItem });
+        //     this.$el.append(view.render().$el);
+        // }, this);
+
+        var template = _.template($('#todoItemsTemplate').html());
+        var html = template(this.model.toJSON());
+        this.$el.html(html);
+
         return this;
+
     }
 }); 

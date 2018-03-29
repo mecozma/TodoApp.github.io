@@ -28,12 +28,22 @@
     <script src="js/main.js"></script>
 
     <script id="todoItemTemplate" type="text/html">
+        <!-- Label's tag role here is to make check the checkbox
+            even when the user clicks on the title -->
+        <label>
         <input type="checkbox" <% if (completed){ %> checked <% } %> id="toggle"></input>
         <%= title %>
+        </label>
         <button id="delete">Delete</button>
+    </script>
+
+    <script id="todoItemsTemplate" type="text/html">
+        <header id="addNewTodoItem">
+            <input type="text" autofocus id="newTodoItem"></input>
+            <button id="add">Add</button>
+        </header>
+        <ul id="todoItems"></ul>
     </script>
 </body>
 
 </html>
-
-
